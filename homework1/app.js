@@ -89,34 +89,37 @@ for (let person of inPersonUsers){
 }
 // ................................................
 
-const dataPerson = fs.readFile(path.join(__dirname,'main','inPerson','person.txt'), 'utf8',(err,data)=>{
-    if (err){
-        console.log(err);
-        throw err;
-    }
-    console.log(data)
-})
+const change =()=>{
+    fs.readFile(path.join(__dirname,'main','inPerson','person.txt'), 'utf8',(err,data)=>{
+        if (err){
+            console.log(err);
+            throw err;
+        }
+        console.log(data)
 
-const dataOnline = fs.readFile(path.join(__dirname,'main','online','online.txt'),(err,data)=>{
-    if (err){
-        console.log(err);
-        throw err;
-    }
-    if(data){
-       console.log(data)
-    }
+        fs.readFile(path.join(__dirname,'main','online','online.txt'),(err,data)=>{
+            if (err){
+                console.log(err);
+                throw err;
+            }
+            fs.appendFile(path.join(__dirname,'main','inPerson','person.txt'),`${inPersonUsers}`,{flag:'w'},(err)=>{
+                if (err){
+                    console.log(err);
+                    throw err;
+                }
+                fs.appendFile(path.join(__dirname,'main','online','online.txt'),`${onlineUsers}`,(err)=>{
+                    if (err){
+                        console.log(err);
+                        throw err;
+                    }
+                })
+            })
 
-})
-fs.writeFile(path.join(__dirname,'main','inPerson','person.txt'),`${JSON.stringify(dataOnline)}`,(err)=>{
-    if (err){
-        console.log(err);
-        throw err;
-    }
-})
-fs.writeFile(path.join(__dirname,'main','online','online.txt'),`${JSON.stringify(dataPerson)}`,(err)=>{
-    if (err){
-        console.log(err);
-        throw err;
-    }
-})
+        })
+    })
+}
+
+change();
+
+
 

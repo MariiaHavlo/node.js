@@ -1,9 +1,0 @@
-undefined"Max","age":26,"city":"Kyiv"},{"name":"Ira","age":25,"city":"Odesa"},{"name":"Lena","age":20,"city":"Lviv"}]NAME: Max
-CITY: Kyiv
-NAME: Ira
-AGE: 26
-AGE: 25
-CITY: Odesa
-NAME: Lena
-AGE: 20
-CITY: Lviv

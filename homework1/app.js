@@ -1,122 +1,67 @@
-// Всі дії виконувати з допомогою модулів (вручну нічого не створюємо)
-// Створити основну папку (main), в яку покласти дві інші папки: перша - online, друга - inPerson
-// Потім створити в вашому головному файлі (для прикладу app.js) два масиви з обєктами user
-// ({. name: "Andrii", age: 22, city: "Lviv" }),  відповідно перший - onlineUsers, другий - inPersonUsers;
-// і створити файли txt в папках (online, inPerson) в яких як дату покласти юзерів з ваших масивів, але щоб ваш файл
-// виглядав як NAME: ім'я з обєкту і т.д і всі пункти з нового рядка.
 //
-// Коли ви це виконаєте напишіть функцію яка буде міняти місцями юзерів з одного файлу і папки в іншу.
-// (ті, що були в папці inPerson будуть в папці online)
+// 1. Спробуйте створити якийсь файл txt, прочитайте з нього дані і одразу, дані які ви отримали запишіть їх в
+// інший файл, в вас вийде невеликий callback hell, пізніше я вам покажу
+// як можна це обійти, але поки зробіть так
 
-const fs = require('fs');
-
+const fs = require('fs')
 const path = require('path')
 
-fs.mkdir(path.join(__dirname,'main','online'),
-    {recursive:true},(err)=>{
+fs.writeFile(path.join(__dirname, 'test.txt'),'some data',(err)=>{
     if (err){
         console.log(err);
         throw err
     }
-});
-fs.mkdir(path.join(__dirname,'main','inPerson'),
-    {recursive:true},(err)=>{
+})
+fs.readFile(path.join(__dirname,'test.txt'),'utf8',(err,data)=>{
     if (err){
-        console.log(err);
-        throw err
-
-    }
-});
-
-let onlineUsers = [
-    { name: "Andrii", age: 22, city: "Lviv" },
-    { name: "Ira", age: 25, city: "Odesa" },
-    { name: "Lena", age: 20, city: "Lviv" }
-];
-
-let inPersonUsers = [
-    { name: "Max", age: 26, city: "Kyiv" },
-    { name: "Ira", age: 25, city: "Odesa" },
-    { name: "Lena", age: 20, city: "Lviv" }
-];
-
-fs.writeFile(
-    path.join(__dirname,'main','online','online.txt'), JSON.stringify(onlineUsers), (err)=>{
-        if (err){
-            console.log(err)
+        console.log(err)
             throw err
-        }
-    })
-
-for (let person of onlineUsers){
-
-    for (let personKey in person){
-
-        fs.appendFile(path.join(__dirname,'main','online','online.txt'),
-            `${personKey.toUpperCase()}: ${person[personKey]}\n`,
-            {flag:'a'},
-            (err)=>{
-                if (err){
-                    console.log(err);
-                    throw err;
-                }
-            })
-    }
-}
-
-fs.writeFile(
-    path.join(__dirname,'main','inPerson','person.txt'), JSON.stringify(inPersonUsers), (err)=>{
-        if (err){
-            console.log(err)
-            throw err
-        }
-    })
-
-for (let person of inPersonUsers){
-
-    for (let personKey in person){
-
-        fs.appendFile(path.join(__dirname,'main','inPerson','person.txt'),
-            `${personKey.toUpperCase()}: ${person[personKey]}\n`,
-            {flag : 'a'},
-            (err)=>{
-            if (err){
-                console.log(err);
-                throw err;
-            }
-            })
-    }
-}
-// ................................................
-
-const dataPerson = fs.readFile(path.join(__dirname,'main','inPerson','person.txt'), 'utf8',(err,data)=>{
-    if (err){
-        console.log(err);
-        throw err;
     }
     console.log(data)
-})
-
-const dataOnline = fs.readFile(path.join(__dirname,'main','online','online.txt'),(err,data)=>{
-    if (err){
-        console.log(err);
-        throw err;
-    }
-    if(data){
-       console.log(data)
-    }
+    fs.writeFile(path.join(__dirname,'test2.txt'),`${data}`,(err)=>{
+        if (err){
+            console.log(err)
+            throw err
+        }
+    })
 
 })
-fs.writeFile(path.join(__dirname,'main','inPerson','person.txt'),`${JSON.stringify(dataOnline)}`,(err)=>{
+//
+// 2. Створіть файл ( можете вручну ) заповніть його якимись даними
+// Прочитайте його, скопіюйте всі дані з нього і перенесіть їх в нову папку та файл в ній, старий файл видаліть після
+// того як все завершиться. Також вийде callback hell
+
+fs.writeFile(path.join(__dirname,'task2.txt'),'info about task',(err)=>{
     if (err){
-        console.log(err);
-        throw err;
+        console.log(err)
+        throw err
     }
 })
-fs.writeFile(path.join(__dirname,'main','online','online.txt'),`${JSON.stringify(dataPerson)}`,(err)=>{
+
+fs.readFile(path.join(__dirname,'task2.txt'),'utf8',(err,data)=>{
     if (err){
-        console.log(err);
-        throw err;
+        console.log(err)
+        throw err
     }
+    console.log(data)
+
+    fs.mkdir(path.join(__dirname,'tasks'),(err)=>{
+        if (err){
+            console.log(err)
+            throw err
+        }
+
+        fs.wriiteFile(path.join(__dirname,'taskMain.txt'),`${data}`,(err)=>{
+            if (err){
+                console.log(err)
+                throw err
+
+            }
+        })
+    })
+
 })
+//
+// 3. Створіть папку (можете вручну) напишіть скріпт який створить в ній якись дані (можуть бути нові папки і файли(в файли запишіть якусь дату) )
+// і напишіть функцію яка буде зчитувати папку і перевіряти якщо дані які в ній лежать - це файли тоді вам потрібно їх очистити, але не видаляти, якщо дані - це папки, вам потрібно їх перейменувати і додати до назви префікс _new
 

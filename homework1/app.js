@@ -102,13 +102,21 @@ const dataOnline = fs.readFile(path.join(__dirname,'main','online','online.txt')
         console.log(err);
         throw err;
     }
-    console.log(data)
-
+    if(data){
+       console.log(data)
+    }
 
 })
-// fs.appendFile(path.join(__dirname,'main','inPerson','person.txt'),`${JSON.stringify(dataPerson)}`,(err)=>{
-//     if (err){
-//         console.log(err);
-//         throw err;
-//     }
-// })
+fs.writeFile(path.join(__dirname,'main','inPerson','person.txt'),`${JSON.stringify(dataOnline)}`,(err)=>{
+    if (err){
+        console.log(err);
+        throw err;
+    }
+})
+fs.writeFile(path.join(__dirname,'main','online','online.txt'),`${JSON.stringify(dataPerson)}`,(err)=>{
+    if (err){
+        console.log(err);
+        throw err;
+    }
+})
+

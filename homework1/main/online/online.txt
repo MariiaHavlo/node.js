@@ -1,5 +1,5 @@
-[{"name":"Andrii","age":22,"city":"Lviv"},{"name":"Ira","age":25,"city":"Odesa"},{"name":"Lena","age":20,"city":"Lviv"}]CITY: Lviv
-NAME: Andrii
+[{"name":"Andrii","age":22,"city":"Lviv"},{"name":"Ira","age":25,"city":"Odesa"},{"name":"Lena","age":20,"city":"Lviv"}]NAME: Andrii
+CITY: Lviv
 AGE: 22
 NAME: Ira
 AGE: 25

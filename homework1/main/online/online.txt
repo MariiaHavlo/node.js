@@ -1,0 +1,9 @@
+undefined"Andrii","age":22,"city":"Lviv"},{"name":"Ira","age":25,"city":"Odesa"},{"name":"Lena","age":20,"city":"Lviv"}]NAME: Andrii
+CITY: Lviv
+NAME: Ira
+AGE: 22
+CITY: Odesa
+NAME: Lena
+AGE: 20
+AGE: 25
+CITY: Lviv

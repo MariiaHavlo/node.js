@@ -30,6 +30,10 @@ app.get('/login', (req, res) => {
     res.render('login')
 })
 
+app.get('/signIn',(req,res) => {
+    res.render('signIn')
+})
+
 // ..............get json info from inputs./login............
 app.post('/login', ({body}, res) => {
 
@@ -44,6 +48,18 @@ app.post('/login', ({body}, res) => {
     console.log(body);
     users.push({...body, id: users.length ? users[users.length-1].id +1 :1});
     res.redirect('/users');
+})
+
+app.post('/signIn',({body},res) => {
+    const user = users.find(user => user.email=== body.email && user.password === body.password);
+    if (!user) {
+        error = 'Wrong email or password';
+        res.redirect('/error');
+
+        return;
+    }
+    res.redirect(`/users/${user.id}`);
+
 })
 
 app.get('/users', ({query}, res) => {
@@ -75,6 +91,8 @@ app.get('/users/:userId', ({params}, res) => {
 
     res.render('userInfo', {user})
 })
+
+
 
 app.get('/error', (req, res) => {
     res.render('error', {error})

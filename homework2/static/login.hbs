@@ -6,18 +6,45 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .registerWrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #3badb4;
+            gap: 5px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
+<div >
+    <form  action="/login" method="post">
+        <div class="registerWrapper">
+            <div>
+                 <input type="text" name="firstName" placeholder="First Name">
+            </div>
+            <div>
+                <input type="text" name="lastName" placeholder="Last Name">
+            </div>
+            <div>
+                 <input type="text" name="email" placeholder="Email">
+            </div>
+            <div>
+                 <input type="number" name="age" placeholder="Age">
+            </div>
+            <div>
+                <input type="text" name="city" placeholder="City">
+            </div>
+            <div>
+                <input type="submit" name="send">
+            </div>
+        </div>
+    </form>
 
-<form action="/login" method="post">
-   First Name: <input type="text" name="firstName">
-    Last Name: <input type="text" name="lastName">
-    Email: <input type="text" name="email">
-    Age: <input type="number" name="age">
-    City: <input type="text" name="city">
-    <input type="submit" name="send">
+</div>
 
-</form>
 
 </body>
 </html>

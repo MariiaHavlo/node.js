@@ -7,14 +7,15 @@
 // 3. /user/:id сторінка з інфою про одного юзера
 //
 // 4. зробити якщо не відпрацюють ендпоінти то на сторінку notFound редірект
-const path = require('path')
+const path = require('path');
 const express = require('express');
 const {engine} = require('express-handlebars');
-
-const users = [];
-let error = '';
-
+const apiRoutes = require('./routes/apiRoutes');
 const app = express();
+
+
+
+app.use(apiRoutes);
 // ..........get json.........
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -24,73 +25,6 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.set('view engine', '.hbs');
 app.engine('.hbs', engine({defaultLayout: false}));
 app.set('views', path.join(__dirname, 'static'));
-
-// ...................../login.show page login.hbs................................................
-app.get('/login', (req, res) => {
-    res.render('login')
-})
-
-app.get('/signIn',(req,res) => {
-    res.render('signIn')
-})
-
-// ..............get json info from inputs./login............
-app.post('/login', ({body}, res) => {
-
-    const emailCheck = users.some(user => user.email === body.email)
-
-    if (emailCheck) {
-        error = 'Such email is already registered';
-        res.redirect('/error');
-
-        return;
-    }
-    console.log(body);
-    users.push({...body, id: users.length ? users[users.length-1].id +1 :1});
-    res.redirect('/users');
-})
-
-app.post('/signIn',({body},res) => {
-    const user = users.find(user => user.email=== body.email && user.password === body.password);
-    if (!user) {
-        error = 'Wrong email or password';
-        res.redirect('/error');
-
-        return;
-    }
-    res.redirect(`/users/${user.id}`);
-
-})
-
-app.get('/users', ({query}, res) => {
-    // .........якщо ключі з квері є....
-    if (Object.keys(query).length) {
-        let usersArray = [...users];
-        if (query.city) {
-          usersArray =  usersArray.filter(user => user.city === query.city)
-        }
-        if (query.age) {
-          usersArray =  usersArray.filter(user => user.age === query.age)
-        }
-
-        res.render('users',{users:usersArray})
-        return;
-    }
-
-    res.render('users', {users})
-})
-
-app.get('/users/:userId', ({params}, res) => {
-    // ..........users[]..find user with userId......
-   const user = users.find(user => user.id === +params.userId);
-   if (!user){
-       error = 'User with id:{params.userId} is already registered';
-       res.redirect('/error');
-       return
-   }
-
-    res.render('userInfo', {user})
-})
 
 
 

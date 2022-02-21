@@ -28,12 +28,8 @@ class UserController {
 
         const user = users.find(user => user.id === +params.userId);
 
-        if (!user) {
-            // error = 'User with id:{params.userId} is already registered';
-            res.redirect('/error');
+        if (!user) throw new Error('User with id:{params.userId} is already registered');
 
-            return;
-        }
 
         res.render('userInfo', {user});
     }

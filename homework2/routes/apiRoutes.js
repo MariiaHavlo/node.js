@@ -16,8 +16,8 @@ routes.use((req,res) => {
     res.render('notFound');
 });
 
-routes.get('/error', (req, res) => {
-    res.render('error', {error});
+routes.get('/error', ({query}, res) => {
+    res.render('error',{error:query.error});
 });
 
 module.exports = routes;

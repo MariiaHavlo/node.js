@@ -1,5 +1,5 @@
 const users = require('../db/users');
-const error = require('../db/error');
+
 
 class LoginController {
     renderLogin(req, res) {
@@ -11,10 +11,9 @@ class LoginController {
         const emailCheck = users.some(user => user.email === body.email);
 
         if (emailCheck) {
-            // error = 'Such email is already registered';
-            res.redirect('/error');
 
-            return;
+            throw new Error( 'Such email is already registered' );
+
         }
 
         users.push({...body, id: users.length ? users[users.length - 1].id + 1 : 1});

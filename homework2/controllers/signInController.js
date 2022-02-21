@@ -6,17 +6,24 @@ class SignInController {
     };
 
     signInUser({body}, res) {
-        const user = users.find(user => user.email === body.email && user.password === body.password);
 
-        if (!user) {
+        try {
+            const user = users.find(user => user.email === body.email && user.password === body.password);
 
-            // error = 'Wrong email or password';
-            res.redirect('/error');
+            if (!user) {
 
-            return;
+                throw new Error('Wrong email or password');
+
+            }
+
+            res.redirect(`/users/${user.id}`);
+
+        }catch ({message}){
+
+            res.redirect(`/error?error${message}`);
+
         }
 
-        res.redirect(`/users/${user.id}`);
 
     }
 }

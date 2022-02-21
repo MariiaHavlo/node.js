@@ -1,3 +1,5 @@
+const users = require('../db/users');
+
 const { Router } = require('express');
 const routes = Router();
 
@@ -9,5 +11,13 @@ routes.use('/login',loginRouter);
 
 const signInRouter = require('./signInRoutes');
 routes.use('/signIn',signInRouter);
+
+routes.use((req,res) => {
+    res.render('notFound');
+});
+
+routes.get('/error', (req, res) => {
+    res.render('error', {error});
+});
 
 module.exports = routes;

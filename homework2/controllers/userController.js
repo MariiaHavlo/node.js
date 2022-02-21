@@ -3,7 +3,6 @@ const users = require('../db/users');
 class UserController {
 
     renderUsers({query}, res) {
-        // .........якщо ключі з квері є....
 
         if (Object.keys(query).length) {
 
